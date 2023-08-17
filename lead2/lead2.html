@@ -1,0 +1,179 @@
+<template>
+    <template lwc:if={isLeadCreated}>
+        <c-lead2success></c-lead2success>
+    </template>
+    <template lwc:else>
+        <div class="slds-is-relative formContainer">
+            <h1 class={cssLocationClass} style="font-size: 30px; font-weight: bold; text-align: center; margin-bottom: 10px">
+                <template lwc:if={selectedLocationValue}>
+                    <lightning-formatted-text
+                        value={selectedLocationValue}
+                    ></lightning-formatted-text>
+                </template>
+                <template lwc:else>Azizi Developments</template>
+            </h1>
+            <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Location</legend>
+            <lightning-combobox
+                name="selectedLocationValue"
+                label="Location"
+                variant="label-hidden"
+                value=""
+                class="kioskInput"
+                placeholder="Select your Location"
+                options={locationOptions}
+                onchange={handleSelectChange}
+            ></lightning-combobox>
+            
+            <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> First Name</legend>
+            <lightning-input style="font-size: 20px" variant="label-hidden" class="kioskInput" name="firstName" label="First Name" type="text" value={firstName} onchange={handleInputChange}></lightning-input>
+
+            <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Last Name</legend>
+            <lightning-input style="font-size: 20px" variant="label-hidden" class="kioskInput" name="lastName" label="Last Name" type="text" value={lastName} onchange={handleInputChange}></lightning-input>
+
+            <legend class="slds-form-element__legend slds-form-element__label">Email</legend>
+            <lightning-input style="font-size: 20px" variant="label-hidden" class="kioskInput" name="email" label="Email" type="email" value={email} onchange={handleInputChange}></lightning-input>
+
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="5" class="paddingX">
+                    <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Country Code</legend>
+                    <c-comboboxsearch label="Country Code" options={mobileCountryCodeOptions} onoptionselected={handleOptionSelected}></c-comboboxsearch>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="7">
+
+                    <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Mobile Number</legend>
+                    <lightning-input pattern="^[0-9]{3,17}$" message-when-pattern-mismatch="Please provide a valid Number" style="font-size: 20px" variant="label-hidden" name="mobile" label="Mobile Number" type="tel" value={mobile} onchange={handleInputChange} onblur={handleMobileBlurChange}></lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="5" class="paddingX">
+                    
+                    <legend class="slds-form-element__legend slds-form-element__label">Country Code</legend>
+                    <c-comboboxsearch label="Alternate Country Code" options={mobileCountryCodeOptions} onoptionselected={handleOptionSelected}></c-comboboxsearch>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="7">
+                    <legend class="slds-form-element__legend slds-form-element__label">Alternate Phone Number</legend>
+                    <lightning-input pattern="^[0-9]{3,17}$" message-when-pattern-mismatch="Please provide a valid Alternate Number" style="font-size: 20px" variant="label-hidden" name="alternateMobile" label="Alternate Phone Number" type="tel" value={alternateMobile} onchange={handleInputChange} onblur={handleMobileBlurChange}></lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Preferred Project</legend>
+            <lightning-input style="font-size: 20px" variant="label-hidden" name="preferredProject" onchange={handleInputChange} label="Preferred Project" type="text" value={preferredProject} ></lightning-input>
+
+            <legend class="slds-form-element__legend slds-form-element__label">Hotel Name</legend>
+            <lightning-input style="font-size: 20px" variant="label-hidden" name="hotel" onchange={handleInputChange} label="Hotel Name" type="text" value={hotel} ></lightning-input>
+
+            <legend class="slds-form-element__legend slds-form-element__label">Room Number</legend>
+            <lightning-input style="font-size: 20px" variant="label-hidden" name="room" onchange={handleInputChange} label="Room Number" type="text" value={room} ></lightning-input>
+
+            <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Notes</legend>
+            <lightning-textarea style="font-size: 20px" variant="label-hidden" name="notes" label="Notes" class="kioskTextarea" type="text" value={notes} onchange={handleInputChange}></lightning-textarea>
+
+            <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Promoter Name</legend>
+            <c-comboboxsearch label="Promoter Name" options={promoterOptions} onoptionselected={handleOptionSelected}></c-comboboxsearch>
+
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="4" class="paddingX">
+                    <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Language</legend>
+                    <c-comboboxsearch label="Language" options={languageOptions} onoptionselected={handleOptionSelected}></c-comboboxsearch>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="4" class="paddingX">
+                    <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Nationality</legend>
+                    <c-comboboxsearch label="Nationality" options={nationalityOptions} onoptionselected={handleOptionSelected}></c-comboboxsearch>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="4" class="paddingX">
+                    <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Country of Residence</legend>
+                    <c-comboboxsearch label="Country of Residence" options={countryOfResidenceOptions} onoptionselected={handleOptionSelected}></c-comboboxsearch>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <!-- <template if:false={isHide}>
+                <legend class="slds-form-element__legend slds-form-element__label">
+                        <span class="inputLabel">*</span>
+                     Direct PC Name
+                </legend>
+                <c-comboboxsearch label="Direct PC Name" options={directPcNameOptions} onoptionselected={handleOptionSelected}></c-comboboxsearch>
+            </template> -->
+
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_7-of-8">
+                    <legend class="slds-form-element__legend slds-form-element__label">
+                        <template if:false={isHide}><span class="inputLabel">*</span></template>
+                        Direct PC Name
+                    </legend>
+                    <c-comboboxsearch is-selected-value={isDisabled} is-input-disabled={isDisabled} label="Direct PC Name" options={directPcNameOptions} onoptionselected={handleOptionSelected}></c-comboboxsearch>
+                </div>
+                <div class="slds-col slds-size_1-of-8 slds-p-top_x-large">
+                    <div class="slds-col slds-size_1-of-1 slds-p-left_medium">
+                        <div class="loan-form-field">
+                            <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <div class="slds-checkbox">
+                                <input type="checkbox" data-field-name="noPC" name="noPC" id="checkbox-unique-id-84" value={noPC} onchange={handleNOPC}/>
+                                <label class="slds-checkbox__label" for="checkbox-unique-id-84">
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">No PC</span>
+                                </label>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="6" class="paddingX">
+                    <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Table Meeting?</legend>
+                    <lightning-combobox
+                        label="Select"
+                        variant="label-hidden"
+                        name="selectedTableMeetingOption"
+                        placeholder="Select"
+                        options={tableMeetingOptions}
+                        onchange={handleSelectChange}
+                        dropdown-alignment="bottom-left"
+                    ></lightning-combobox>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="6" class="paddingX">
+                    <legend class="slds-form-element__legend slds-form-element__label"><span class="inputLabel">*</span> Direct Office Visitor?</legend>
+                    <lightning-combobox
+                        label="Select"
+                        variant="label-hidden"
+                        name="selectedDirectOfficeVisitorOption"
+                        placeholder="Select"
+                        options={directOfficeVisitorOptions}
+                        onchange={handleSelectChange}
+                        dropdown-alignment="bottom-left"
+                    ></lightning-combobox>
+                </lightning-layout-item>
+            </lightning-layout>
+            
+            <br />
+
+            <div style="text-align: right; margin-top: 16px">
+                <lightning-button 
+                    variant="brand-outline" 
+                    label="Reset" 
+                    title="Reset" onclick={reloadPage} 
+                    class="slds-m-left_x-small">
+                </lightning-button>
+                <lightning-button variant="brand" 
+                    label="Submit" 
+                    title="Submit" 
+                    onclick={handleFormSubmit} 
+                    class="slds-m-left_x-small">
+                </lightning-button>
+            </div>
+            <template lwc:if={formErrors}>
+                <ul style="color: red; font-size: 15px; font-weight: 900" class="slds-list_dotted">
+                    <template for:each={formErrors} for:item="formError">
+                        <li key={formError}>{formError}</li>
+                    </template>
+                </ul>
+            </template>
+            <template lwc:if={isLoading}>
+                <lightning-spinner alternative-text="Loading" variant="brand" size="small"></lightning-spinner>
+            </template>
+        </div>
+    </template>
+</template>

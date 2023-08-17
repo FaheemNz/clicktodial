@@ -1,0 +1,20 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Click To Dial" icon-name="standard:lead">
+        <!-- <template lwc:if={blankSkillIdCampaignId}>
+            <p class="slds-p-around_small" style="Color:Red;font-size: 15px;">Agent(Campaign/Skill ID) is not properly configured ! Please contact System Administrator...</p>
+            <template lwc:if={userNotOwner}>
+                <p class="slds-p-around_small" style="Color:Red;font-size: 15px;">You can not call this customer, as you are not the owner of this Lead.</p>
+            </template>
+        </template>-->
+        <!--<template lwc:elseif={userNotOwner}> -->
+        <template lwc:if={userNotOwner}>
+            <p class="slds-p-around_small" style="Color:Red;font-size: 15px;">You can not call this customer, as you are not the owner of this Lead.</p>
+        </template>
+        <template lwc:else >
+            <div class="slds-p-around_small" style="font-size: 15px;">
+                <p>Mobile :  <lightning-click-to-dial value={maskedMobile} record-id={recordId}></lightning-click-to-dial> </p>
+                <p>Alternate Phone :  <lightning-click-to-dial value={alternatePhoneMasked} record-id={recordId}></lightning-click-to-dial> </p>
+            </div> 
+        </template>
+    </lightning-card>
+</template>

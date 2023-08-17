@@ -1,0 +1,39 @@
+<template>
+    <template lwc:if={IsPCLoggedIn}>
+        <div class="slds-card">
+            <template lwc:if={isLoading}>
+                <div class="slds-spinner_container">
+                    <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative">
+                      <span class="slds-assistive-text">Loading</span>
+                      <div class="slds-spinner__dot-a"></div>
+                      <div class="slds-spinner__dot-b"></div>
+                      
+                      <!-- additional element to show the text under the spinner -->
+                      <p class="slds-spinner-text">Hang on...</p>
+                    </div>
+                </div>
+            </template>
+            <div class="slds-p-around_medium">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="clickable-container">
+                            <lightning-input message-toggle-active="ON" message-toggle-inactive="OFF" type="toggle" label="Kiosk" name="kiosk" onchange={toggleButton} checked={kioskValue}></lightning-input>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="clickable-container">
+                            <lightning-input message-toggle-active="ON" message-toggle-inactive="OFF" type="toggle" label="TeleSales" name="telesales" onchange={toggleButton} checked={teleSalesValue}></lightning-input>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="slds-p-bottom_x-small">
+                    <span style="font-size: medium;font-size: 24px;color:black;font-weight:600;">Source of Direct Lead</span>
+                </div>
+                <div class="container" onclick={toggleButton}>
+                    <div class={buttonClass}></div>
+                    <div class="label">{label}</div>
+                </div> -->
+            </div>
+        </div>
+    </template>
+</template>

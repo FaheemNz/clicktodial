@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 200px;
+    height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    padding: 5px;
+    background-color: #f0f0f0; /* Background color for the container */
+}
+
+.button-on {
+    width: 90px;
+    height: 40px;
+    background-color: #008000; /* Background color when the button is on */
+    border-radius: 20px;
+    margin-right: 5px;
+}
+
+.button-off {
+    width: 90px;
+    height: 40px;
+    background-color: #ff0000; /* Background color when the button is off */
+    border-radius: 20px;
+    margin-right: 5px;
+}
+
+.label {
+    font-size: 18px;
+    color: #000;
+}
+
+/* Spinner Styling */
+.slds-spinner-text {
+    width: 320px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+  }
+.slds-spinner--small .slds-spinner-text {
+    transform: translate(-36%, -50%) rotate(-90deg);
+}
+.slds-spinner--medium .slds-spinner-text {
+    transform: translate(-32%, -50%) rotate(-90deg);
+}
+.slds-spinner--large .slds-spinner-text {
+    transform: translate(-26%, -50%) rotate(-90deg);
+}
+.clickable-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}

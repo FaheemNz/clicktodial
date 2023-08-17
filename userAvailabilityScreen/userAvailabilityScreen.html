@@ -1,0 +1,61 @@
+<template>
+    <div if:true={isLoaded} >
+       <template if:true={getValue}>
+        <article  class="slds-card slds-var-m-*_large slds-var-m-*_medium">
+            <h1 class="header">
+                Select the users and move to right column to make them available for work
+            </h1>
+            <div class="slds-align_absolute-center">
+        <lightning-dual-listbox name="languages"
+                                label="Select User"
+                                source-label="Available"
+                                selected-label="Selected"
+                                field-level-help="Move the user to right to make them available for work"
+                                options={options2}
+                                value={values2}
+                                onchange={handleChangeAvailWork}>
+        </lightning-dual-listbox>
+        </div>
+        <br/>
+        <div class="slds-align_absolute-center">
+            <lightning-button style="margin: 10px; display: block" label="Cancel" title="Cancel" class="slds-m-left_x-small marginToDiv"></lightning-button>
+            <lightning-button style="margin: 10px; display: block" variant="Success" label="Update" title="Update1" onclick={handleUpdateAvailForWork} class="slds-m-left_x-small marginToDiv"></lightning-button>
+        </div>  
+    </article>
+
+    </template>    
+    </div>
+    <div if:true={isLoaded} >
+        <template if:false={getValue}>
+            <article  class="slds-card slds-var-m-*_large slds-var-m-*_medium">
+        <h1 class="header">
+            Select the users and move to right column to make them available for round robin assignment of opportunity
+        </h1>
+        <div class="slds-align_absolute-center">
+    <lightning-dual-listbox name="languages"
+                            label="Select User"
+                            source-label="Available"
+                            selected-label="Selected"
+                            field-level-help="Move the user to right to make them available for Round Robin Assignment"
+                            options={options}
+                            value={values}
+                            onchange={handleChange}>
+    </lightning-dual-listbox>
+</div>
+
+    <br/>
+    <div class="slds-align_absolute-center">
+        <lightning-button style="margin: 10px; display: block" label="Cancel" title="Cancel" class="slds-m-left_x-small marginToDiv"></lightning-button>
+        <lightning-button style="margin: 10px; display: block" variant="Success" label="Update" title="Update" onclick={handleUpdate} class="slds-m-left_x-small marginToDiv"></lightning-button>
+    </div>  
+</article>
+</template>
+    </div>
+    <div if:false={isLoaded} class="slds-is-relative">
+    <article style="min-height: 50px" class="slds-card slds-var-m-*_large slds-var-m-*_medium">
+    <lightning-spinner alternative-text="Loading..." variant="brand">
+    </lightning-spinner>
+    
+</article>
+    </div>
+</template>

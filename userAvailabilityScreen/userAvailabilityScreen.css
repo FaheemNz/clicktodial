@@ -1,0 +1,11 @@
+.marginToDiv {
+    margin: 10px !important;
+    display: block !important;
+}
+
+.header { 
+    margin: 10px !important;
+    font-weight: bold !important;
+    font-size: 15px;
+    text-align: center !important;
+}

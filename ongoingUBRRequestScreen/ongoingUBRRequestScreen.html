@@ -1,0 +1,14 @@
+<template>
+    <div class="slds-card" style="max-height: 400px;">
+        <div class="slds-p-bottom_medium slds-p-top_medium slds-p-left_medium" style="font-size: 18px;">
+            <b>Ongoing UBR Requests:</b>
+        </div>
+        
+        <lightning-datatable key-field=”Id”
+                                data={ubrRequests}
+                                columns={columns}
+                                hide-checkbox-column=”true” 
+                                show-row-number-column=”true”>
+        </lightning-datatable>
+    </div>
+</template>
