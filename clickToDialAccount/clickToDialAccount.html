@@ -9,27 +9,35 @@
 	</lightning-card>
 
 
-	<template if:true={isFeedbackVisible}>
+	<template if:true={isFeedbackModalVisible}>
 		<section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
 			class="slds-modal slds-fade-in-open slds-modal_medium">
 			<div class="slds-modal__container">
 				<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={closeModal}>
-<svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
-<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
-</svg>
-<span class="slds-assistive-text">Cancel and close</span>
-</button>
+					<svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+					<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+					</svg>
+					<span class="slds-assistive-text">Cancel and close</span>
+				</button>
 				<div class="slds-modal__header">
 					<h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Customer Feedback</h1>
 				</div>
-				<div class="background slds-p-around_large" id="modal-content-id-1">
-                    <lightning-textarea name="feedback" label="Feedback" placeholder="type here..." value="" onchange={handleFeedbackChange} required></lightning-textarea>
-                    <div>
-                     Assign User   
-					<c-custom-look-up-lwc obj-name="User" filter="IsActive = true" search-placeholder="Search User" icon-name="standard:user" onlookupselected={handleUserSelection}> </c-custom-look-up-lwc>
-                    </div>
-                </div>
-				<div class="slds-modal__footer">
+
+				<div class="background slds-p-around_large">
+					<c-custom-multiple-lookup-lwc onchange={handleCasesChange} options={cases} place-holder="Select Cases"></c-custom-multiple-lookup-lwc>
+				</div>
+
+				<template if:true={isFeedbackVisible}>
+					<div class="background slds-p-around_large" id="modal-content-id-1">
+						<lightning-textarea name="feedback" label="Feedback" placeholder="type here..." value="" onchange={handleFeedbackChange} required></lightning-textarea>
+						<div>
+						Assign User   
+						<c-custom-look-up-lwc obj-name="User" filter="IsActive = true" search-placeholder="Search User" icon-name="standard:user" onlookupselected={handleUserSelection}> </c-custom-look-up-lwc>
+						</div>
+					</div>
+				</template>
+
+				<div class="slds-modal__footer" if:true={isSaveButtonVisible}>
 					<button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={closeModal}>Cancel</button>
 					<button class="slds-button slds-button_brand" onclick={handleSave}>Save</button>
 				</div>

@@ -2,6 +2,7 @@ import { LightningElement, api, wire } from 'lwc';
 import feedback from '@salesforce/apex/CustomerFeedback.feedbackSave';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { getRecord } from 'lightning/uiRecordApi';
+import getCases from '@salesforce/apex/CustomerFeedback.getCases';
 
 const FIELDS = [
     'Account.Mobile_Number_Formula__c',
@@ -12,10 +13,28 @@ export default class ClickToDialAccount extends LightningElement {
     @api recordId;
     userId = '';
     isFeedbackVisible = false;
+    isFeedbackModalVisible = false;
     feedbackInput = '';
+    options = [
+        { label: 'Option 1', value: 'option1' },
+        { label: 'Option 2', value: 'option2' }
+    ];
+    selectedValues = ['option1'];
+    selectedCases = [];
+    cases = [];
 
     @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
     account;
+
+    connectedCallback(){
+        getCases()
+            .then(response => {
+                this.cases = response;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 
     get mobileNumber() {
         return this.account.data.fields.Mobile_Number_Formula__c.value;
@@ -26,7 +45,19 @@ export default class ClickToDialAccount extends LightningElement {
 
     getFeedback() {
         console.log('on action');
-        this.isFeedbackVisible = true;
+        this.isFeedbackModalVisible = true;
+    }
+
+    handleCasesChange(event){
+        let cases = event.detail;
+        
+        this.selectedCases = [];
+
+        cases.forEach(theCase => {
+            this.selectedCases.push( theCase.value );
+        });
+
+        console.log( this.selectedCases );
     }
 
     handleFeedbackChange(e) {
@@ -39,15 +70,14 @@ export default class ClickToDialAccount extends LightningElement {
     }
 
     closeModal() {
-        this.isFeedbackVisible = false;
+        this.isFeedbackModalVisible = false;
     }
 
     handleDialClick(event) {
-
-        console.log('in handle dial click', event.currentTarget.value);
         const phoneNumber = event.currentTarget.value;
+        
         if (phoneNumber != '' && phoneNumber != undefined) {
-            this.isFeedbackVisible = true;
+            this.isFeedbackModalVisible = true;
 
             if (sforce && sforce.one && sforce.one.clickToDial) {
                 const dialParams = {
